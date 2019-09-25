@@ -2,49 +2,106 @@
 Treehouse Techdegree:
 FSJS project 2 - List Filter and Pagination
 ******************************************/
-   
+
 // Study guide for this project - https://drive.google.com/file/d/1OD1diUsTMdpfMDv677TfL1xO2CEkykSz/view?usp=sharing
 
 
-/*** 
-   Add your global variables that store the DOM elements you will 
-   need to reference and/or manipulate. 
+
+//Get an ARRAY of all of the students to display instead of a nodelist 
+//an array is needed to use the slice and foreach array prototypes;
+//referenced https://davidwalsh.name/nodelist-array
+const students = Array.prototype.slice.call(document.getElementsByClassName('student-item'));
+const pageSize = 10;
+
+// slice function from https://stackoverflow.com/questions/42761068/paginate-javascript-array
+function showPage(studentList, pageNumber, pageSize) {
+   // because pages logically start with 1, but technically with 0
+   pageNumber = pageNumber - 1;
+   //The slice() method selects the elements starting at the given start argument, and ends at, but does not include, the given end argument.
+   const pageView = studentList.slice(pageNumber * pageSize, (pageNumber + 1) * pageSize);
+   //babystep check
+   //console.log(pageView);
+
+   //The forEach() method executes a provided function once for each array element.
+   //This is a poor man's toggle as jQuery was not available per assignment.
+   //
+   //This hides all students
+   studentList.forEach(function (student) {
+      student.style.display = "none";
+   });
+   //this shows the selected students from the slice method.
+   pageView.forEach(function (student) {
+      student.style.display = "block"
+   });
+}
+
+
+//Method to generate, append, and add functionality to the pagination buttons.
+function appendPageLinks() {
+
+   //find the location to add the pagination buttons
+   const studentUL = document.querySelector('.student-list');
+   //find the correct number of pagination buttons
+   const buttonCount = Math.ceil(students.length/pageSize);
+
+   //Create the div for hte page controls;
+   const div = document.createElement('div');
+   div.classList.add('pagination');
+
+   //add the ul;
+   const paginationUL = document.createElement('ul');
    
-   But be mindful of which variables should be global and which 
-   should be locally scoped to one of the two main functions you're 
-   going to create. A good general rule of thumb is if the variable 
-   will only be used inside of a function, then it can be locally 
-   scoped to that function.
-***/
 
 
+   const pageLi = document.createElement('li');
+   const liAnchor = document.createElement('a');
+   liAnchor.setAttribute('href','#');
+   liAnchor.innerText = '1';
+
+   pageLi.appendChild(liAnchor);
+   div.appendChild(pageLi);
+   studentUL.insertAdjacentElement('afterend' ,div);
+
+   //appendToUl('span','textContent', text);
+
+   //create a pagination button
+
+   //Add the correct number of pagination buttons
+   /***
+     <!-- pagination HTML to create dynamically -->
+         <div class="pagination">
+           <ul>
+             <li>
+               <a class="active" href="#">1</a>
+             </li>
+              <li>
+               <a href="#">2</a>
+             </li>
+              <li>
+               <a href="#">3</a>
+             </li>
+              <li>
+               <a href="#">4</a>
+             </li>
+              <li>
+               <a href="#">5</a>
+             </li>
+           </ul>
+         </div>
+         <!-- end pagination -->
+    */
+   //const pagination
+   //add the pagination buttons with a scoped function
+
+   //add an eventhadler to buttons to capture the cleck event
+
+   //get the pagenumber clicked and call show page.
+
+};
 
 
-/*** 
-   Create the `showPage` function to hide all of the items in the 
-   list except for the ten you want to show.
-
-   Pro Tips: 
-     - Keep in mind that with a list of 54 students, the last page 
-       will only display four.
-     - Remember that the first student has an index of 0.
-     - Remember that a function `parameter` goes in the parens when 
-       you initially define the function, and it acts as a variable 
-       or a placeholder to represent the actual function `argument` 
-       that will be passed into the parens later when you call or 
-       "invoke" the function 
-***/
-
-
-
-
-/*** 
-   Create the `appendPageLinks function` to generate, append, and add 
-   functionality to the pagination buttons.
-***/
-
-
-
-
-
-// Remember to delete the comments that came with this file, and replace them with your own code comments.
+//wait for it.....ok go!
+document.addEventListener("DOMContentLoaded", function () {
+   appendPageLinks();
+   showPage(students, 1, pageSize);
+});

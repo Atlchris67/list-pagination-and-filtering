@@ -17,8 +17,10 @@ const pageSize = 10;
 function showPage(studentList, pageNumber, pageSize) {
    // because pages logically start with 1, but technically with 0
    pageNumber = pageNumber - 1;
+
    //The slice() method selects the elements starting at the given start argument, and ends at, but does not include, the given end argument.
    const pageView = studentList.slice(pageNumber * pageSize, (pageNumber + 1) * pageSize);
+   
    //babystep check
    //console.log(pageView);
 
@@ -42,61 +44,56 @@ function appendPageLinks() {
    //find the location to add the pagination buttons
    const studentUL = document.querySelector('.student-list');
    //find the correct number of pagination buttons
-   const buttonCount = Math.ceil(students.length/pageSize);
+   const buttonCount = Math.ceil(students.length / pageSize);
 
-   //Create the div for hte page controls;
+   //Create the div for the page controls;
    const div = document.createElement('div');
    div.classList.add('pagination');
 
-   //add the ul;
+   //create the ul
    const paginationUL = document.createElement('ul');
-   
+
+   //build the li entries for the page "links"
+   for (let i = 0; i < buttonCount; i++) {
+      const pageLi = document.createElement('li');
+      const liAnchor = document.createElement('a');
+      liAnchor.setAttribute('href', '#');
+
+      //display the page count for starting from 1
+      liAnchor.innerText = (i + 1);
+
+      //On initial view set page 1 to active
+      if (i === 0) {
+         liAnchor.classList.add('active');
+      }
+
+      //add new LI and anchor to the document
+      pageLi.appendChild(liAnchor);
+      paginationUL.appendChild(pageLi);
+   };
+
+   //add the new UL to the page
+   div.appendChild(paginationUL);
+   //found this at https://developer.mozilla.org/en-US/docs/Web/API/Element/insertAdjacentElement
+   studentUL.insertAdjacentElement('afterend', div);
 
 
-   const pageLi = document.createElement('li');
-   const liAnchor = document.createElement('a');
-   liAnchor.setAttribute('href','#');
-   liAnchor.innerText = '1';
+   //Add the event listener to "change the page" view
+   paginationUL.addEventListener('click', function(e){
+      //Get the new and old active pages. 
+      const newActiveButton = e.target;
+      const oldActiveButton = paginationUL.querySelector('.active');
 
-   pageLi.appendChild(liAnchor);
-   div.appendChild(pageLi);
-   studentUL.insertAdjacentElement('afterend' ,div);
+      //Move active state to the new page.
+      oldActiveButton.classList.remove('active');
+      newActiveButton.classList.add('active');
 
-   //appendToUl('span','textContent', text);
+      //actually show the correct sections
+      showPage(students, newActiveButton.innerText, pageSize);
 
-   //create a pagination button
-
-   //Add the correct number of pagination buttons
-   /***
-     <!-- pagination HTML to create dynamically -->
-         <div class="pagination">
-           <ul>
-             <li>
-               <a class="active" href="#">1</a>
-             </li>
-              <li>
-               <a href="#">2</a>
-             </li>
-              <li>
-               <a href="#">3</a>
-             </li>
-              <li>
-               <a href="#">4</a>
-             </li>
-              <li>
-               <a href="#">5</a>
-             </li>
-           </ul>
-         </div>
-         <!-- end pagination -->
-    */
-   //const pagination
-   //add the pagination buttons with a scoped function
-
-   //add an eventhadler to buttons to capture the cleck event
-
-   //get the pagenumber clicked and call show page.
-
+      //keep the page from reloading as it will raise the DOMContentLoaded event.
+      e.preventDefault();
+   });
 };
 
 

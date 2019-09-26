@@ -73,7 +73,7 @@ function appendPageLinks(studentList, pageNumber) {
 
    //build the li entries for the page "links"
    let page = 0;
-   for (page = 0; pages < buttonCount; pages++) {
+   for (page = 0; page < buttonCount; page++) {
       const pageLi = document.createElement('li');
       const liAnchor = document.createElement('a');
       liAnchor.setAttribute('href', '#');

@@ -72,16 +72,17 @@ function appendPageLinks(studentList, pageNumber) {
    const paginationUL = document.createElement('ul');
 
    //build the li entries for the page "links"
-   for (let i = 0; i < buttonCount; i++) {
+   let page = 0;
+   for (page = 0; pages < buttonCount; pages++) {
       const pageLi = document.createElement('li');
       const liAnchor = document.createElement('a');
       liAnchor.setAttribute('href', '#');
 
       //display the page count for starting from 1
-      liAnchor.innerText = (i + 1);
+      liAnchor.innerText = (page + 1);
 
       //set page 1 to active
-      if (i === pageNumber) {
+      if (page === pageNumber) {
          liAnchor.classList.add('active');
       }
 
@@ -90,11 +91,13 @@ function appendPageLinks(studentList, pageNumber) {
       paginationUL.appendChild(pageLi);
    };
 
+   //do not show if only one page
+   if (page > 1){
    //add the new UL to the page
    div.appendChild(paginationUL);
    //found this at https://developer.mozilla.org/en-US/docs/Web/API/Element/insertAdjacentElement
    studentUL.insertAdjacentElement('afterend', div);
-
+   };
 
    //Add the event listener to "change the page" view
    paginationUL.addEventListener('click', function (e) {

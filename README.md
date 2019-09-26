@@ -17,8 +17,8 @@ Using progressive enhancement and unobtrusive JavaScript, add pagination to the 
 *   The appropriate number of pagination buttons are dynamically added based on the amount of students provided.
 *   Each pagination button shows the appropriate group of 10 students from the list when clicked. 
 *   It works with any number of students.
-  * [https://atlchris67.github.io/list-pagination-and-filtering/examples/64students.html](https://atlchris67.github.io/list-pagination-and-filtering/examples/64students.html)
-  * [https://atlchris67.github.io/list-pagination-and-filtering/examples/44students.html](https://atlchris67.github.io/list-pagination-and-filtering/examples/44students.html)
+    * [https://atlchris67.github.io/list-pagination-and-filtering/examples/64students.html](https://atlchris67.github.io/list-pagination-and-filtering/examples/64students.html)
+    * [https://atlchris67.github.io/list-pagination-and-filtering/examples/44students.html](https://atlchris67.github.io/list-pagination-and-filtering/examples/44students.html)
 *   By default it shows the first 10 students when page is loaded.
 
 ## [](#exceeds-expectations)Exceeds Expectations:
